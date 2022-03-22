@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<h1> Hangman </h1>
+<body>
+    
+    <script>
+   var flag = false;
+var attemps = 10;
+var words = ["lemon", "banana", "apple", "table", "chair", "dog","cat"]; // array of words 
+var word = words[Math.floor(Math.random()*words.length)];// get random word 
+var answerArray = [];
+for(var i = 0;i<word.length;i++){ // init the array of *
+    answerArray[i] = '*';
+} 
+var remain = word.length;
+while(remain>0){ // to check if the user guessed the full word 
+    alert(answerArray.join(" ") + "\nnumber of attemps is : "+attemps);
+    var guess = prompt("Please enter a new letter : "); // get input from user
+    if(guess >= 'a' && guess<= 'z'||guess >= 'A' && guess<= 'Z'){ // check if invalid char
+        flag = false;
+        for(var j = 0;j<word.length;j++){// replace from * to guessed char
+            if(word[j] == guess.toLowerCase()){
+                answerArray[j] = guess.toLowerCase();
+                remain--;
+                flag = true;
+            }
+        }
+        if(!flag) // to decrease attemps number
+            attemps--;
+        if(attemps === 0){// if the user reached all attemps, he fails
+            alert("You Lose - Failed");
+            break;
+        }
+    }
+    else{
+        alert("The guess is invalid - try again")// if user tries numbers or symbols
+    }
+}
+if(remain===0){// the user guesses the right word 
+    alert("good Job , the answer is "+word);
+}
+    </script>
+    
+    </body>
+    </html>
